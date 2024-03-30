@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
 
@@ -13,12 +13,12 @@ export default function Cast({cast, navigation}) {
       <ScrollView horizontal
                   showsHorizontalScrollIndicator={false} 
                   contentContainerStyle={{paddingHorizontal:15}}>
-        {cast.map((item, index) => {
+        {cast.map((person, index) => {
             return(
                 <TouchableOpacity
                     key={index}
                     className="mr-4 items-center"
-                    onPress={() => navigation.navigate('Person',person)}>
+                    onPress={() => navigation.navigate('Person', person)}>
                         
                         <View className="overflow-hidden rounded-full h-20 w-20 items-center border border-neutral-500">
                             <Image className='rounded-2xl h-24 w-20' source={require('../../assets/castImage.png')} />
