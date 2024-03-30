@@ -10,7 +10,7 @@ export default function TrendingMovies({data}) {
 
   const navigation = useNavigation()
 
-  const handleClick = () => {
+  const handleClick = (item) => {
     navigation.navigate('Movie', item);
   }
 
@@ -32,7 +32,7 @@ export default function TrendingMovies({data}) {
 
 const MovieCard = ({item, handleClick}) => {
   return(
-    <TouchableWithoutFeedback onPress={handleClick}>
+    <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image source={require('../../assets/movie.png')} 
               style={{width: width*0.6, height: height *0.4}}
               className="rounded-3xl"/> 
