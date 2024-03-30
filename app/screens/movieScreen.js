@@ -4,7 +4,7 @@ import { useRoute, useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
-import { styles } from '../theme';
+import { styles, theme } from '../theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import Cast from '../components/cast';
 import MovieList from '../components/movieList';
@@ -27,7 +27,7 @@ export default function MovieScreen() {
     }, [item])
 
   return (
-    <ScrollView contentContainerStyle={{paddingBottom: 100}} className="flex-1 bg-neutral-900">
+    <ScrollView contentContainerStyle={{paddingBottom: 20}} className="flex-1 bg-neutral-900">
             {/* back button and movie poster*/}
             <View className="w-full">
                 <SafeAreaView className={"absolute z-20 w-full flex-row justify-between items-center px-4 " + topMargin}>
@@ -35,9 +35,10 @@ export default function MovieScreen() {
                         <ChevronLeftIcon size="28" strokeWidth={2.5} color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => toggleFavourite(!isFavorite)}>
-                        <HeartIcon size="35" color={isFavorite ? "red" : "white"} />
+                        <HeartIcon size="35" color={isFavorite ? theme.background : "white"} />
                     </TouchableOpacity>
                 </SafeAreaView>
+                
                 <View>
                     <Image source={require('../../assets/movie.png')} 
                     style={{width: width, height: height * 0.55}} 
