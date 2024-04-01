@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { View, Text, Platform, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bars3Icon, MagnifyingGlassIcon } from 'react-native-heroicons/outline'
@@ -8,16 +8,46 @@ import TrendingMovies from '../components/TrendingMovies';
 import MovieList from '../components/movieList';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../components/loading';
+import { fetchTrendingMovies, fetchUpcomingMovies, fetchTopRatedMovies } from '../api/moviedb';
 
 const ios = Platform.OS === 'ios';
 
 const HomeScreen = () => {
 
-    const [trending, setTrending] = useState([1, 2, 3, 4]);
-    const [upcoming, setUpcoming] = useState([1, 2, 3, 4]);
-    const [topRated, setTopRated] = useState([1, 2, 3, 4]);
-    const [loading, setLoading] = useState(false);
+    const [trending, setTrending] = useState([]);
+    const [upcoming, setUpcoming] = useState([]);
+    const [topRated, setTopRated] = useState([]);
+    const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
+
+    const getTrendingMovies = async () => {
+        const data = await fetchTrendingMovies();
+        // console.log('got trending movies: ', data);
+        if (data && data.results) setTrending(data.results);
+        setLoading(false);
+    }
+
+    const getUpcomingMovies = async () => {
+        const data = await fetchUpcomingMovies();
+        // console.log('got upcoming movies: ', data);
+        if (data && data.results) setUpcoming(data.results);
+        setLoading(false);
+
+    }
+
+    const getTopRatedMovies = async () => {
+        const data = await fetchTopRatedMovies();
+        // console.log('got top rated movies: ', data);
+        if (data && data.results) setTopRated(data.results);
+        setLoading(false);
+    }
+
+    useEffect(()=>{
+        getTrendingMovies();
+        getUpcomingMovies();
+        getTopRatedMovies();
+    }, [])
+
 
     return (
         <View className="flex-1 bg-neutral-800">
@@ -43,7 +73,7 @@ const HomeScreen = () => {
                     >
                         {/*Trending movies carousel */}
 
-                        <TrendingMovies data={trending} />
+                        {trending.length > 0 && <TrendingMovies data={trending} />}
 
                         {/* upcoming movies row */}
                         <MovieList title="Upcoming" data={upcoming} />

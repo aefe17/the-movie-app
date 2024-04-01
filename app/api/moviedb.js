@@ -3,10 +3,25 @@ import { apiKey } from '../constants'
 
 //endpoints
 const apiBaseUrl = 'https://api.themoviedb.org/3';
-const trendingMoviesEndpoint = `${apiBaseUrl}/trending/movie/day?language=en-US?api_key=${apiKey}`;
+const trendingMoviesEndpoint = `${apiBaseUrl}/trending/movie/week?language=en-US?api_key=${apiKey}`;
 const upcomingMoviesEndpoint = `${apiBaseUrl}/movie/upcoming?language=en-US?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `${apiBaseUrl}/movie/top_rated?language=en-US?api_key=${apiKey}`;
 
+//
+
+//dynamic endpoints
+const movieDetailsEndpoint = (id) => `${apiBaseUrl}/movie/${id}?language=en-US`;
+const movieCreditsEndpoint = (id) => `${apiBaseUrl}/movie/${id}/credits?language=en-US`;
+const movieSimilarEndpoint = (id) => `${apiBaseUrl}/movie/${id}/similar?language=en-US`;
+//
+ 
+export const image500 = path=> path? `https://image.tmdb.org/t/p/w500${path}` : null
+export const image342 = path=> path? `https://image.tmdb.org/t/p/w342${path}` : null
+export const image185 = path=> path? `https://image.tmdb.org/t/p/w185${path}` : null
+
+
+export const fallbackMoviePoster ='https://www.movienewz.com/img/films/poster-holder.jpg'
+export const fallbackPersonImage = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
 
 const apiCall = async (endpoint, params) => {
     const options = {
@@ -38,4 +53,16 @@ export const fetchUpcomingMovies = () => {
 
 export const fetchTopRatedMovies = () => {
     return apiCall(topRatedMoviesEndpoint);
+}
+
+export const fetchMovieDetails = (id) => {
+    return apiCall(movieDetailsEndpoint(id));
+}
+
+export const fetchMovieCredits = (id) => {
+    return apiCall(movieCreditsEndpoint(id));
+}   
+
+export const fetchMovieSimilar = (id) => { 
+    return apiCall(movieSimilarEndpoint(id));
 }
