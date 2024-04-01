@@ -41,7 +41,7 @@ export default function MovieScreen() {
 
     const getSioilarMovies = async (id) => {
         const data = await fetchMovieSimilar(id);
-        console.log('got similar movies: ', data);
+        // console.log('got similar movies: ', data);
         if (data && data.results) setSimilarMovies(data.results);
         
     }
