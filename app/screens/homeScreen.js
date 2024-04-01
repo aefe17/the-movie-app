@@ -1,22 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import {React, useState} from 'react';
+import { React, useState } from 'react';
 import { View, Text, Platform, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Bars3Icon, MagnifyingGlassIcon } from 'react-native-heroicons/outline' 
+import { Bars3Icon, MagnifyingGlassIcon } from 'react-native-heroicons/outline'
 import { styles } from '../theme';
 import TrendingMovies from '../components/TrendingMovies';
 import MovieList from '../components/movieList';
 import { useNavigation } from '@react-navigation/native';
+import Loading from '../components/loading';
 
 const ios = Platform.OS === 'ios';
 
 const HomeScreen = () => {
 
-    const [trending, setTrending] = useState([1,2,3,4]);
-    const [upcoming, setUpcoming] = useState([1,2,3,4]);
-    const [topRated, setTopRated] = useState([1,2,3,4]);
+    const [trending, setTrending] = useState([1, 2, 3, 4]);
+    const [upcoming, setUpcoming] = useState([1, 2, 3, 4]);
+    const [topRated, setTopRated] = useState([1, 2, 3, 4]);
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
-    
+
     return (
         <View className="flex-1 bg-neutral-800">
             <SafeAreaView className={ios ? "-mb-2" : "mb-3"}>
@@ -30,21 +32,28 @@ const HomeScreen = () => {
                 </View>
             </SafeAreaView>
 
-            <ScrollView 
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{paddingBottom: 10}}
-            >
-                {/*Trending movies carousel */}
+            {
+                loading ? (
+                    <Loading />
+                ) : (
 
-                <TrendingMovies data={trending}/>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ paddingBottom: 10 }}
+                    >
+                        {/*Trending movies carousel */}
 
-                {/* upcoming movies row */}
-                <MovieList title="Upcoming" data={upcoming} />
+                        <TrendingMovies data={trending} />
 
-                {/* upcoming movies row */}
-                <MovieList title="Top Rated" data={topRated} />
+                        {/* upcoming movies row */}
+                        <MovieList title="Upcoming" data={upcoming} />
 
-            </ScrollView>
+                        {/* upcoming movies row */}
+                        <MovieList title="Top Rated" data={topRated} />
+
+                    </ScrollView>
+                )
+            }
 
         </View>
     );
