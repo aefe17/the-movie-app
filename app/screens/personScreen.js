@@ -24,21 +24,17 @@ export default function PersonScreen() {
 
     const getPersonDetails = async (id) => {
         const data = await fetchPersonDetails(id);
-        console.log(id)
-        console.log('got person details: ', data);
         if (data) setPerson(data);
         setLoading(false);
     }
 
     const getPersonMovies = async (id) => {
         const data = await fetchPersonMovies(id);
-        console.log('got person movies: ', data);
         if (data && data.cast) setPersonMovies(data.cast);
     }
 
     useEffect(() => {
         setLoading(true)
-        // console.log('person data: ', item)
         getPersonDetails(item.id)
         getPersonMovies(item.id)
     }, [item])
@@ -76,7 +72,6 @@ export default function PersonScreen() {
                             <View className="items-center rounded-full overflow-hidden h-72 w-72 border-2 border-neutral-500">
                                 <Image
                                     source={{ uri: image342(person?.profile_path) || fallbackPersonImage }}
-                                    //source={require('../../assets/castImage.png')}
                                     style={{ width: width * 0.74, height: height * 0.43 }} />
                             </View>
                         </View>

@@ -16,8 +16,8 @@ export default function SearchScreen() {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const handleSearch = value =>{
-        // console.log('value: ', value)
+    //fetch search results
+    const handleSearch = value => {
         if (value && value.length > 2) {
             setLoading(true)
             searchMovies({
@@ -25,26 +25,22 @@ export default function SearchScreen() {
                 page: '1'
             }).then(data => {
                 setLoading(false);
-                // console.log('got movies: ', data)
                 if (data && data.results) setResults(data.results);
             })
-            //fetch search results
-            // const data = await fetchSearchResults(value);
             setLoading(false)
-            // if (data) setResults(data.results)
-        } else{
+        } else {
             setLoading(false);
             setResults([]);
         }
     }
-    
+
     const handleTextDebounce = useCallback(debounce(handleSearch, 400), [])
 
     return (
         <SafeAreaView className="bg-neutral-800 flex-1">
             <View className="mx-4 mb-3 mt-5 flex-row justify-between border border-neutral-500 rounded-full">
                 <TextInput
-                onChangeText={handleTextDebounce}
+                    onChangeText={handleTextDebounce}
                     placeholder='Search Movie'
                     placeholderTextColor={'lightgray'}
                     className="pb-1 pl-6 flex-1 text-base font-semibold text-white tracking-wider"
@@ -78,8 +74,7 @@ export default function SearchScreen() {
 
                                                 <View className="space-y-2 mb-4">
                                                     <Image className="rounded-3xl"
-                                                        source = {{uri: image185(item.poster_path) || fallbackMoviePoster}}
-                                                        //source={require('../../assets/movie.png')}
+                                                        source={{ uri: image185(item.poster_path) || fallbackMoviePoster }}
                                                         style={{ width: width * 0.44, height: height * 0.3 }} />
                                                     <Text className="text-neutral-300 ml-1 items-center">
                                                         {
@@ -100,7 +95,6 @@ export default function SearchScreen() {
                             <Image source={require('../../assets/popcorn.png')}
                                 className="h-60 w-60"
                             />
-
                         </View>
                     )
                 )

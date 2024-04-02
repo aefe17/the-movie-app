@@ -10,6 +10,8 @@ import Cast from '../components/cast';
 import MovieList from '../components/movieList';
 import Loading from '../components/loading';
 import { fallbackMoviePoster, fetchMovieCredits, fetchMovieDetails, image500, fetchMovieSimilar } from '../api/moviedb';
+
+
 var { width, height } = Dimensions.get('window');
 const ios = Platform.OS === 'ios';
 const topMargin = ios ? "" : "mt-3";
@@ -28,27 +30,23 @@ export default function MovieScreen() {
 
     const getMovieDetails = async (id) => {
         const data = await fetchMovieDetails(id);
-        // console.log('got movie details: ', data);
         if (data) setMovie(data);
         setLoading(false);
     }
 
     const getMovieCredits = async (id) => {
         const data = await fetchMovieCredits(id);
-        // console.log('got movie credits: ', data);
         if (data && data.cast) setCast(data.cast);
     }
 
     const getSioilarMovies = async (id) => {
         const data = await fetchMovieSimilar(id);
-        // console.log('got similar movies: ', data);
         if (data && data.results) setSimilarMovies(data.results);
         
     }
 
     useEffect(() => {
         // call the movie details api
-        // console.log('ItemId: ', item.id);
         setLoading(true);
         getMovieDetails(item.id);
         getMovieCredits(item.id);
@@ -76,7 +74,6 @@ export default function MovieScreen() {
                         <View>
                             <Image
                                 source={{ uri: image500(movie.poster_path) || fallbackMoviePoster }}
-                                // source={require('../../assets/movie.png')}
                                 style={{ width: width, height: height * 0.55 }}
                                 className="rounded-2xl" />
 

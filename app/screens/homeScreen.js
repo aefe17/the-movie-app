@@ -22,14 +22,12 @@ const HomeScreen = () => {
 
     const getTrendingMovies = async () => {
         const data = await fetchTrendingMovies();
-        // console.log('got trending movies: ', data);
         if (data && data.results) setTrending(data.results);
         setLoading(false);
     }
 
     const getUpcomingMovies = async () => {
         const data = await fetchUpcomingMovies();
-        // console.log('got upcoming movies: ', data);
         if (data && data.results) setUpcoming(data.results);
         setLoading(false);
 
@@ -37,7 +35,6 @@ const HomeScreen = () => {
 
     const getTopRatedMovies = async () => {
         const data = await fetchTopRatedMovies();
-        // console.log('got top rated movies: ', data);
         if (data && data.results) setTopRated(data.results);
         setLoading(false);
     }
@@ -72,12 +69,9 @@ const HomeScreen = () => {
                         contentContainerStyle={{ paddingBottom: 10 }}
                     >
                         {/*Trending movies carousel */}
-
                         {trending.length > 0 && <TrendingMovies data={trending} />}
-
                         {/* upcoming movies row */}
                         <MovieList title="Upcoming" data={upcoming} />
-
                         {/* upcoming movies row */}
                         <MovieList title="Top Rated" data={topRated} />
 
