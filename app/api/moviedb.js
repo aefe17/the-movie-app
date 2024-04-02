@@ -6,7 +6,7 @@ const apiBaseUrl = 'https://api.themoviedb.org/3';
 const trendingMoviesEndpoint = `${apiBaseUrl}/trending/movie/week?language=en-US?api_key=${apiKey}`;
 const upcomingMoviesEndpoint = `${apiBaseUrl}/movie/upcoming?language=en-US?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `${apiBaseUrl}/movie/top_rated?language=en-US?api_key=${apiKey}`;
-
+const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?language=en-US?api_key=${apiKey}`;
 //
 
 //dynamic endpoints
@@ -49,6 +49,8 @@ const apiCall = async (endpoint, params) => {
     }
 }
 
+
+
 export const fetchTrendingMovies = () => {
     return apiCall(trendingMoviesEndpoint);
 }
@@ -79,4 +81,8 @@ export const fetchPersonDetails = (id) => {
 
 export const fetchPersonMovies = (id) => {
     return apiCall(personMoviesEndpoint(id));
+}
+
+export const searchMovies = (params) => {
+    return apiCall(searchMoviesEndpoint, params);
 }
